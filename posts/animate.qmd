@@ -1,0 +1,180 @@
+---
+title: "Animate:  Move Mouse or Touch to Attract or Scroll to Resize"
+author: "Jordi Rosell"
+embed-resources: false
+image: "animate.png"
+format: html
+---
+
+<h1 class="title">Animate:  Move Mouse or Touch to Attract or Scroll to Resize</h1>
+
+Aquesta animació interactiva permet **interactuar amb scroll, ratolí o pulsació**.
+
+<style>
+body {    
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1a0f1f; /* Matching your image background */
+}
+#title-block-header, h1, h1 + p { display:none;}
+canvas {
+  z-index: 0;
+  margin-top: 100px;
+  display: block;
+}
+.instructions {
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+  color: #bbb;
+  font-family: sans-serif;
+}
+.instructions a {
+  color: #888;
+  cursor: pointer;
+  pointer-events: auto; 
+  position: relative;
+}
+</style>
+
+<div class="instructions">
+<h3>Animate by Jordi Rosell</h3>
+  Move Mouse or Touch to Attract or Scroll to Resize | License: <a href="https://creativecommons.org/licenses/by-nc/2.5/" target="_blank">CC BY-NC 2.5</a> | Code: <a href="https://github.com/jrosell/scrollytelling/blob/main/posts/animate.qmd" target="_blank">github repo</a> | Inspiration from <a href="https://mastodon.social/@nrennie@fosstodon.org/116100028313153338">Nicola Rennie</a>
+</div>
+
+
+<canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 120 };
+    let globalScale = 1;
+
+    const colors = [
+        'rgba(235, 150, 100, 0.75)', 
+        'rgba(100, 180, 200, 0.75)', 
+        'rgba(210, 100, 120, 0.75)', 
+        'rgba(180, 190, 150, 0.75)', 
+        'rgba(140, 120, 170, 0.75)'
+    ];
+
+    // --- Event Listeners ---
+
+    window.addEventListener('resize', init);
+
+    // Desktop Mouse
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    // Mobile Touch
+    window.addEventListener('touchstart', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+        // Prevent scrolling page while interacting
+        e.preventDefault(); 
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // Scroll to resize
+    window.addEventListener('wheel', (e) => {
+        globalScale += e.deltaY * -0.001;
+        globalScale = Math.min(Math.max(0.3, globalScale), 4);
+    });
+
+    class Square {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.baseX = x;
+            this.baseY = y;
+            this.size = Math.random() * 25 + 8;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.density = (Math.random() * 20) + 2;
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            const scaledSize = this.size * globalScale;
+            ctx.fillRect(this.x - scaledSize/2, this.y - scaledSize/2, scaledSize, scaledSize);
+        }
+
+        update() {
+            if (mouse.x !== null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let force = (mouse.radius - distance) / mouse.radius;
+                    
+                    this.x += forceDirectionX * force * this.density;
+                    this.y += forceDirectionY * force * this.density;
+                } else {
+                    this.returnToOrigin();
+                }
+            } else {
+                this.returnToOrigin();
+            }
+        }
+
+        returnToOrigin() {
+            if (this.x !== this.baseX) {
+                let dx = this.x - this.baseX;
+                this.x -= dx / 15; // Elastic return
+            }
+            if (this.y !== this.baseY) {
+                let dy = this.y - this.baseY;
+                this.y -= dy / 15;
+            }
+        }
+    }
+
+    function init() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+
+        // Density adjustment: fewer squares on smaller screens for performance
+        let area = canvas.width * canvas.height;
+        let numberOfParticles = area / 3500; 
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            particles.push(new Square(x, y));
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+</script>

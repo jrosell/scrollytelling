@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jordi Rosell">
 
-<title>Scrollytelling</title>
+<title>Animate: Move Mouse or Touch to Attract or Scroll to Resize</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +27,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-3512cbed9e2527d986e9b0b56d261405.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b400e44a6c272e918dd7a1c7f40d8342.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3512cbed9e2527d986e9b0b56d261405.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b400e44a6c272e918dd7a1c7f40d8342.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,65 +71,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -147,13 +88,19 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Scrollytelling</h1>
+<h1 class="title">Animate: Move Mouse or Touch to Attract or Scroll to Resize</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Rosell </p>
+          </div>
+  </div>
     
   
     
@@ -164,59 +111,181 @@ window.Quarto = {
 </header>
 
 
-<p>L’scrollytelling és una tècnica de narració interactiva de productes digitals que es basa en fer servir el desplaçament per revelar textos, imatges, dades, visualitzacions o animacions d’una manera dinàmica a mesura que l’usuari es desplaça cap avall per una pàgina web.</p>
-<p>A continuació en tens alguns exemples. El codi font el pots trobar a <a href="https://github.com/jrosell/scrollytelling">GitHub</a>.</p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1758278006506" data-listing-reading-time-sort="7" data-listing-word-count-sort="1345">
-<a href="./posts/renda.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/comparacio.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Evolució de la renda disponible individual ajustada al IPC (2004-2023)
-</h5>
-<div class="card-text listing-description delink">
-Aquesta presentació analitza la <strong>renda disponible individual</strong> ajustada i no ajustada al IPC entre 2004 i 2023 a Espanya.
-</div>
-<div class="card-attribution card-text-small start">
-<div class="listing-author">
-Jordi Rosell
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1771576569682" data-listing-reading-time-sort="8" data-listing-word-count-sort="1457">
-<a href="./posts/animate.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/animate.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
+<h1 class="title">
 Animate: Move Mouse or Touch to Attract or Scroll to Resize
-</h5>
-<div class="card-text listing-description delink">
-Aquesta animació interactiva permet <strong>interactuar amb scroll, ratolí o pulsació</strong>.
+</h1>
+<p>Aquesta animació interactiva permet <strong>interactuar amb scroll, ratolí o pulsació</strong>.</p>
+<style>
+body {    
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1a0f1f; /* Matching your image background */
+}
+#title-block-header, h1, h1 + p { display:none;}
+canvas {
+  z-index: 0;
+  margin-top: 100px;
+  display: block;
+}
+.instructions {
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+  color: #bbb;
+  font-family: sans-serif;
+}
+.instructions a {
+  color: #888;
+  cursor: pointer;
+  pointer-events: auto; 
+  position: relative;
+}
+</style>
+<div class="instructions">
+<h3 class="anchored">
+Animate by Jordi Rosell
+</h3>
+<p>Move Mouse or Touch to Attract or Scroll to Resize | License: <a href="https://creativecommons.org/licenses/by-nc/2.5/" target="_blank">CC BY-NC 2.5</a> | Code: <a href="https://github.com/jrosell/scrollytelling/blob/main/posts/animate.qmd" target="_blank">github repo</a> | Inspiration from <a href="https://mastodon.social/@nrennie@fosstodon.org/116100028313153338">Nicola Rennie</a></p>
 </div>
-<div class="card-attribution card-text-small start">
-<div class="listing-author">
-Jordi Rosell
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+<canvas id="canvas">
+</canvas>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 120 };
+    let globalScale = 1;
+
+    const colors = [
+        'rgba(235, 150, 100, 0.75)', 
+        'rgba(100, 180, 200, 0.75)', 
+        'rgba(210, 100, 120, 0.75)', 
+        'rgba(180, 190, 150, 0.75)', 
+        'rgba(140, 120, 170, 0.75)'
+    ];
+
+    // --- Event Listeners ---
+
+    window.addEventListener('resize', init);
+
+    // Desktop Mouse
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    // Mobile Touch
+    window.addEventListener('touchstart', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+        // Prevent scrolling page while interacting
+        e.preventDefault(); 
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // Scroll to resize
+    window.addEventListener('wheel', (e) => {
+        globalScale += e.deltaY * -0.001;
+        globalScale = Math.min(Math.max(0.3, globalScale), 4);
+    });
+
+    class Square {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.baseX = x;
+            this.baseY = y;
+            this.size = Math.random() * 25 + 8;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.density = (Math.random() * 20) + 2;
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            const scaledSize = this.size * globalScale;
+            ctx.fillRect(this.x - scaledSize/2, this.y - scaledSize/2, scaledSize, scaledSize);
+        }
+
+        update() {
+            if (mouse.x !== null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let force = (mouse.radius - distance) / mouse.radius;
+                    
+                    this.x += forceDirectionX * force * this.density;
+                    this.y += forceDirectionY * force * this.density;
+                } else {
+                    this.returnToOrigin();
+                }
+            } else {
+                this.returnToOrigin();
+            }
+        }
+
+        returnToOrigin() {
+            if (this.x !== this.baseX) {
+                let dx = this.x - this.baseX;
+                this.x -= dx / 15; // Elastic return
+            }
+            if (this.y !== this.baseY) {
+                let dy = this.y - this.baseY;
+                this.y -= dy / 15;
+            }
+        }
+    }
+
+    function init() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+
+        // Density adjustment: fewer squares on smaller screens for performance
+        let area = canvas.width * canvas.height;
+        let numberOfParticles = area / 3500; 
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            particles.push(new Square(x, y));
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+</script>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
